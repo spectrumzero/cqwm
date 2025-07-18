@@ -1,0 +1,115 @@
+# ===================================================================
+# IntelliJ IDEA 特定文件 (IntelliJ IDEA Specific Files)
+# ===================================================================
+# 涵盖 JetBrains 系列 IDE: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm, Rider
+# 参考: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# 用户特定的设置文件夹 (User-specific settings folder)
+# 通常包含工作区布局、本地历史记录、个人运行配置、缓存等，不应共享。
+.idea/
+
+# IntelliJ 模块文件 (Module files)
+# 这些文件描述了项目的结构，但对于 Maven 项目，可以从 pom.xml 重新生成。
+# 忽略它们可以避免因不同开发者本地配置差异导致的冲突。
+*.iml
+# 如果子模块中也有 .iml 文件 (可选, *.iml 通常已足够)
+# */*.iml
+
+# IntelliJ 默认的编译输出目录 (Default output directory)
+# 虽然 Maven 项目使用 'target' 目录，但加上这个以防万一。
+out/
+
+# Java 虚拟机崩溃日志文件和 IDE 生成的杂项日志 (JVM crash logs & misc logs)
+hs_err_pid*
+replay_pid*
+
+# ===================================================================
+# Maven 构建输出和临时文件 (Maven Build Output & Temporary Files)
+# ===================================================================
+# Maven 的主要构建输出目录 (Main build output directory)
+# 包含编译后的类、测试结果、打包的 jar/war 等。必须忽略。
+target/
+
+# 确保所有子模块中的 target 目录也被忽略 (Ensure target/ in submodules is ignored)
+**/target/
+
+# Maven 项目相关的临时文件 (Maven project temporary files)
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# 可选：如果你不希望将 Maven Wrapper 的 jar 文件提交到版本控制 (Optional: ignore wrapper jar)
+# .mvn/wrapper/maven-wrapper.jar
+
+# ===================================================================
+# 通用 Java 和构建产物 (Common Java & Build Artifacts)
+# ===================================================================
+# 编译后的 Java 类文件 (Compiled Java class files)
+# (理论上 target/ 规则已包含，但明确写出更保险)
+*.class
+
+# 日志文件 (Log files)
+*.log
+logs/
+*.log.*
+
+# 打包后的文件 (Packaged archives)
+# (理论上 target/ 规则已包含)
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# ===================================================================
+# 操作系统生成的文件 (Operating System Files)
+# (可选，但强烈推荐)
+# ===================================================================
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ===================================================================
+# 杂项临时文件 (Miscellaneous Temporary Files)
+# (可选，但推荐)
+# ===================================================================
+# 某些编辑器生成的临时文件 (Temporary files from some editors)
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# ===================================================================
+# Eclipse IDE specific files (即使你主要用 IDEA，也建议加上以防万一)
+# ===================================================================
+.classpath
+.project
+.settings/
+.factorypath
+
+# 其他常见的 Eclipse 相关忽略项
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+
+# 忽略数据库配置文件
+jdbc.properties
