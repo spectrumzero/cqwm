@@ -16,6 +16,7 @@ import org.springframework.util.DigestUtils;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
+    // 注意需要在mapper接口上使用@mapper注解(来自mybatis)，将动态创建的mapper代理对象注册到容器中
     @Autowired
     private EmployeeMapper employeeMapper;
 

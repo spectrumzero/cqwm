@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
      * @param ex
      * @return
      */
-    @ExceptionHandler
+    @ExceptionHandler // 该注解省略了参数，会根据方法参数自动推断(要捕获的异常)
     public Result exceptionHandler(BaseException ex){
         log.error("异常信息：{}", ex.getMessage());
         return Result.error(ex.getMessage());

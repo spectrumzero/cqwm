@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
+// 将yml文件中的配置宽松绑定到bean
 @ConfigurationProperties(prefix = "sky.jwt")
 @Data
 public class JwtProperties {

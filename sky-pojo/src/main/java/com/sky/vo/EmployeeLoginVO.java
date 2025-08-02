@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
-@Builder
+@Data // 减少样板代码(setter getter toString....)
+@Builder // 设计模式之建造者模式，给类添加静态方法builder()
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "员工登录返回的数据格式")

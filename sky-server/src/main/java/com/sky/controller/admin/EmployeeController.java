@@ -28,6 +28,7 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
+
     @Autowired
     private JwtProperties jwtProperties;
 
@@ -51,13 +52,15 @@ public class EmployeeController {
                 jwtProperties.getAdminTtl(),
                 claims);
 
-        EmployeeLoginVO employeeLoginVO = EmployeeLoginVO.builder()
-                .id(employee.getId())
-                .userName(employee.getUsername())
-                .name(employee.getName())
-                .token(token)
-                .build();
+        // 有了jwt令牌后，就可以连着其他需要的信息一起，生成前端需要的视图对象
+        EmployeeLoginVO employeeLoginVO = EmployeeLoginVO.builder() // 创建builder对象
+                .id(employee.getId()) // 调用builder与字段同名的方法来为字段设置属性，继续返回builder
+                .userName(employee.getUsername()) // go on
+                .name(employee.getName()) // go on
+                .token(token) // 设置token属性
+                .build(); // 最后builder的build()方法会返回设置好的对象
 
+        // 泛型，打包，统一返回的结果
         return Result.success(employeeLoginVO);
     }
 
