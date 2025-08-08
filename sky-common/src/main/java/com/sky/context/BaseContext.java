@@ -2,6 +2,7 @@ package com.sky.context;
 
 public class BaseContext {
 
+    // 通过ThreadLocal传递一个线程内共享的变量
     public static ThreadLocal<Long> threadLocal = new ThreadLocal<>();
 
     public static void setCurrentId(Long id) {
