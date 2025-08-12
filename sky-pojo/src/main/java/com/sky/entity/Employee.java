@@ -1,5 +1,6 @@
 package com.sky.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,8 @@ public class Employee implements Serializable {
 
     private Integer status;
 
+    // 该注解用来精确地控制某个Java对象字段在转换成JSON字符串时的格式，以便返回给前端更容易处理的结果
+    // 用于Jackson库不知道该如何处理复杂对象如LocalDateTime的场景
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 

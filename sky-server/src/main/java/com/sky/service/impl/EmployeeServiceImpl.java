@@ -1,16 +1,20 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
 import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
+import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
 import lombok.val;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -91,6 +96,33 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // 最后调用mapper层完成对数据库的操作
         employeeMapper.insert(employee);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param employeePageQueryDTO
+     * @return
+     */
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        // 1. 设置分页参数
+        // 调用PageHelper的静态方法startPage，开启分页功能。
+        // PageHelper会通过线程局部变量（ThreadLocal）来存储分页参数。
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+
+        // 2. 执行查询
+        // 紧跟在startPage方法后的第一个MyBatis查询方法会被自动进行分页。
+        // PageHelper的拦截器会自动在原始SQL语句后面追加LIMIT子句。
+        // Page继承了ArrayList
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+
+        // 3. 获取分页结果
+        // Page对象是PageHelper提供的实现，它包含了分页信息和查询结果。
+        long total = page.getTotal(); // 从Page对象中获取总记录数
+        List<Employee> records = page.getResult(); // 获取当前页的数据列表
+
+        // 4. 封装成统一的PageResult对象并返回
+        return new PageResult(total, records);
     }
 
 }
