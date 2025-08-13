@@ -140,7 +140,49 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.update(employee);
     }
 
+    /**
+     * 根据id查询员工
+     *
+     * @param id
+     * @return
+     */
+    public Employee getById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        // 修改返回给前端的敏感数据
+        employee.setPassword("****");
+        return employee;
+    }
 
+    /**
+     * 编辑员工信息
+     *
+     * @param employeeDTO
+     */
+    public void update(EmployeeDTO employeeDTO) {
+        // 1. 创建用于数据库更新的实体对象
+        // DTO (Data Transfer Object) 用于接收前端数据，而Entity用于与数据库交互。
+        // 这是一个良好的分层习惯，避免将数据库实体直接暴露给前端。
+        Employee employee = new Employee();
 
+        // 2. 使用BeanUtils.copyProperties进行对象属性拷贝
+        // 这是一个非常实用的工具，它可以自动将employeeDTO中的同名属性值，拷贝到employee对象中。
+        // 这避免了我们手动编写大量的 employee.setName(employeeDTO.getName()); 这样的代码，
+        // 使代码更简洁，且当未来增加字段时，无需修改这里的代码。
+        BeanUtils.copyProperties(employeeDTO, employee);
 
+        // 3. 设置数据审计（Auditing）字段
+        // 更新“最后修改时间”为当前时间，这是数据追踪的重要一环。
+        employee.setUpdateTime(LocalDateTime.now());
+
+        // 4. 设置“最后修改人”的ID
+        // BaseContext.getCurrentId() 从ThreadLocal中获取当前登录用户的ID。
+        // 这个ID是在JWT拦截器中，当用户请求被验证通过时，从Token中解析并存入的。
+        // 这同样是数据审计的关键，记录下是谁执行了这次修改操作。
+        employee.setUpdateUser(BaseContext.getCurrentId());
+
+        // 5. 调用Mapper层执行数据库更新
+        // employeeMapper.update 会根据传入的employee对象的ID（ID也通过属性拷贝设置好了），
+        // 去更新数据库中对应记录的其他字段。
+        employeeMapper.update(employee);
+    }
 }
