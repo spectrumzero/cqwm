@@ -38,4 +38,10 @@ public interface EmployeeMapper {
      */
     // 在xml中实现接口方法，使用动态sql
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
-}
+
+
+    /**
+     * 根据主键动态修改属性
+     * @param employee
+     */
+    void update(Employee employee);}
