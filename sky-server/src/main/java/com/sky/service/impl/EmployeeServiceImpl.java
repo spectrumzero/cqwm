@@ -86,13 +86,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
         //设置当前记录的创建时间和修改时间
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
 
         // 记录当前操作者的id信息
         // 因为是在同一个线程中，所以可以获取到这次访问的token所解析出来的员工id。
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+//        employee.setCreateUser(BaseContext.getCurrentId());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
 
         // 最后调用mapper层完成对数据库的操作
         employeeMapper.insert(employee);
@@ -172,13 +172,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // 3. 设置数据审计（Auditing）字段
         // 更新“最后修改时间”为当前时间，这是数据追踪的重要一环。
-        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
 
         // 4. 设置“最后修改人”的ID
         // BaseContext.getCurrentId() 从ThreadLocal中获取当前登录用户的ID。
         // 这个ID是在JWT拦截器中，当用户请求被验证通过时，从Token中解析并存入的。
         // 这同样是数据审计的关键，记录下是谁执行了这次修改操作。
-        employee.setUpdateUser(BaseContext.getCurrentId());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
 
         // 5. 调用Mapper层执行数据库更新
         // employeeMapper.update 会根据传入的employee对象的ID（ID也通过属性拷贝设置好了），
